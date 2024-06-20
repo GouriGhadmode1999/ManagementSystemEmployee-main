@@ -1,0 +1,67 @@
+<div class="container-sm">
+    <div class="col-md-6 offset-md-3  container-sm ">
+        <form #f="ngForm" (ngSubmit)="f.form.valid && onSubmit()" class="row g-3 form-container  container-sm">
+
+            <div class="form-group col-md-6">
+                <label><b>Skill Name</b></label>
+                <select id="skillName" class="form-control" [(ngModel)]="skill.skillName" name="skillName" required
+                    #skillName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && skillName.errors }">
+                    <option selected disabled value="">Choose..</option>
+                    <option>HTML</option>
+                    <option>CSS</option>
+                    <option>JavaScript</option>
+                    <option>Python</option>
+                </select>
+
+                <div *ngIf="f.submitted && skillName.errors" class="invalid-feedback">
+                    <div *ngIf="skillName.errors['required']">Skill name is required</div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label><b>Proficiency</b></label>
+                <select id="proficiency" class="form-control" [(ngModel)]="skill.proficiency" name="proficiency"
+                    required #proficiency="ngModel" [ngClass]="{ 'is-invalid': f.submitted && proficiency.errors }">
+                    <option selected disabled value="">Choose..</option>
+                    <option>Beginner</option>
+                    <option>Intermediate</option>
+                    <option>Advanced</option>
+                    <option>Expert</option>
+                </select>
+
+                <div *ngIf="f.submitted && proficiency.errors" class="invalid-feedback">
+                    <div *ngIf="proficiency.errors['required']">Proficiency level is required</div>
+                </div>
+            </div>
+
+            <!-- <div class="form-group col-md-6">
+                <label><b>Certification</b></label>
+                <input type="text" class="form-control" [(ngModel)]="skill.certification" name="certification">
+            </div> -->
+
+            <div class="form-group col-md-6">
+                <label><b>Is Certification Applicable?</b></label>
+                <select id="certificationApplicable" class="form-control" [(ngModel)]="skill.certificationApplicable" name="certificationApplicable">
+                    <option value="applicable">Applicable</option>
+                    <option value="not-applicable">Not Applicable</option>
+                </select>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label><b>Organization Name</b></label>
+                <input *ngIf="skill.certificationApplicable === 'applicable'" type="text" class="form-control" [(ngModel)]="skill.organizationName" name="organizationName" required>
+                <div *ngIf="skill.certificationApplicable === 'applicable' && f.submitted" class="invalid-feedback">
+                    Organization name is required if certification is applicable.
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <button class="btn btn-success full-width-button" type="submit" id="reg" [disabled]="!f.form.valid">Submit</button>
+            </div>
+
+            <div class="col-md-6">
+                <button type="button" class="btn btn-danger full-width-button">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
